@@ -18,7 +18,7 @@ jobs:
       uses: classroom-resources/autograding-io-grader@v1
       with:
         test-name: First Phase
-        setup-command: ''
+        setup-command: sudo chmod 755 bomb
         command: "./bomb < solution.txt"
         input: ''
         expected-output: Phase 1 defused\. How about the next one\?
@@ -30,7 +30,7 @@ jobs:
       uses: classroom-resources/autograding-io-grader@v1
       with:
         test-name: Second Phase
-        setup-command: ''
+        setup-command: sudo chmod 755 bomb
         command: "./bomb < solution.txt"
         input: ''
         expected-output: That's number 2\. Keep going!
@@ -42,7 +42,7 @@ jobs:
       uses: classroom-resources/autograding-io-grader@v1
       with:
         test-name: Third phase
-        setup-command: ''
+        setup-command: sudo chmod 755 bomb
         command: "./bomb < solution.txt"
         input: ''
         expected-output: Halfway there!
@@ -54,12 +54,12 @@ jobs:
       uses: classroom-resources/autograding-io-grader@v1
       with:
         test-name: Fourth Phase
-        setup-command: ''
+        setup-command: sudo chmod 755 bomb
         command: "./bomb < solution.txt"
         input: ''
-        expected-output: |2
+        expected-output: 'So you got that one\. Try this one\.
 
-          So you got that one\. Try this one\.
+          '
         comparison-method: regex
         timeout: 10
         max-score: 15
@@ -68,12 +68,12 @@ jobs:
       uses: classroom-resources/autograding-io-grader@v1
       with:
         test-name: Fifth Phase
-        setup-command: ''
+        setup-command: sudo chmod 755 bomb
         command: "./bomb < solution.txt"
         input: ''
-        expected-output: |2
+        expected-output: 'Good work! On to the next\.\.\.
 
-          Good work! On to the next\.\.\.
+          '
         comparison-method: regex
         timeout: 10
         max-score: 15
@@ -82,7 +82,7 @@ jobs:
       uses: classroom-resources/autograding-io-grader@v1
       with:
         test-name: Sixth Phase
-        setup-command: ''
+        setup-command: sudo chmod 755 bomb
         command: "./bomb < solution.txt"
         input: ''
         expected-output: Congratulations! You've defused the bomb!
