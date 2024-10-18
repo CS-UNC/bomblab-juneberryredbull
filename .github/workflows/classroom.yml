@@ -1,0 +1,102 @@
+name: Autograding Tests
+'on':
+- push
+- repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: First Phase
+      id: first-phase
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: First Phase
+        setup-command: sudo chmod 755 bomb
+        command: "./bomb < solution.txt"
+        input: ''
+        expected-output: Phase 1 defused\. How about the next one\?
+        comparison-method: regex
+        timeout: 10
+        max-score: 10
+    - name: Second Phase
+      id: second-phase
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Second Phase
+        setup-command: sudo chmod 755 bomb
+        command: "./bomb < solution.txt"
+        input: ''
+        expected-output: That's number 2\. Keep going!
+        comparison-method: regex
+        timeout: 10
+        max-score: 10
+    - name: Third phase
+      id: third-phase
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Third phase
+        setup-command: sudo chmod 755 bomb
+        command: "./bomb < solution.txt"
+        input: ''
+        expected-output: Halfway there!
+        comparison-method: regex
+        timeout: 10
+        max-score: 10
+    - name: Fourth Phase
+      id: fourth-phase
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Fourth Phase
+        setup-command: sudo chmod 755 bomb
+        command: "./bomb < solution.txt"
+        input: ''
+        expected-output: 'So you got that one\. Try this one\.
+
+          '
+        comparison-method: regex
+        timeout: 10
+        max-score: 15
+    - name: Fifth Phase
+      id: fifth-phase
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Fifth Phase
+        setup-command: sudo chmod 755 bomb
+        command: "./bomb < solution.txt"
+        input: ''
+        expected-output: 'Good work! On to the next\.\.\.
+
+          '
+        comparison-method: regex
+        timeout: 10
+        max-score: 15
+    - name: Sixth Phase
+      id: sixth-phase
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Sixth Phase
+        setup-command: sudo chmod 755 bomb
+        command: "./bomb < solution.txt"
+        input: ''
+        expected-output: Congratulations! You've defused the bomb!
+        comparison-method: regex
+        timeout: 10
+        max-score: 15
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        FIRST-PHASE_RESULTS: "${{steps.first-phase.outputs.result}}"
+        SECOND-PHASE_RESULTS: "${{steps.second-phase.outputs.result}}"
+        THIRD-PHASE_RESULTS: "${{steps.third-phase.outputs.result}}"
+        FOURTH-PHASE_RESULTS: "${{steps.fourth-phase.outputs.result}}"
+        FIFTH-PHASE_RESULTS: "${{steps.fifth-phase.outputs.result}}"
+        SIXTH-PHASE_RESULTS: "${{steps.sixth-phase.outputs.result}}"
+      with:
+        runners: first-phase,second-phase,third-phase,fourth-phase,fifth-phase,sixth-phase
